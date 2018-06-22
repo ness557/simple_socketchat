@@ -4,19 +4,24 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ChatClient {
 
     public static void main(String[] args) throws Exception{
-        new ChatClient().start("127.0.0.1", "6666");
+        String url = "127.0.0.1";
+        String port = "6666";
 
-//        new ChatClient().start(args[0], args[1]);
+        if(args.length >= 2){
+            url = args[0];
+            port = args[1];
+        }
+
+        new ChatClient().start(url, port);
     }
 
     private void start(String host, String port) throws Exception {
 
-        Socket socket = null;
+        Socket socket;
 
         int portNumber = Integer.valueOf(port);
         try {
@@ -28,7 +33,7 @@ public class ChatClient {
         } catch (IOException e) {
             System.out.println("Could not connect!");
 
-            ServerSocket ss = null;
+            ServerSocket ss;
             try {
                 ss = new ServerSocket(portNumber);
             } catch (IOException e1) {
